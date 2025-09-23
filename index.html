@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Max Chang | Portfolio</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS user ID
+    })();
+  </script>
 </head>
 <body>
   <!-- Header -->
@@ -14,6 +20,7 @@
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
+      <a href="https://www.youtube.com/channel/UCdWm4luIouGLm6ozN5FxBQA" target="_blank">YouTube</a>
     </nav>
   </header>
 
@@ -22,7 +29,7 @@
     <canvas id="particles"></canvas>
     <div class="hero-content">
       <h2>Hello, I’m <span class="highlight">Max</span> 👋</h2>
-      <h3><span id="typed-text"></span><span class="cursor">|</span></h3>
+      <h3 class="typing-line"><span id="typed-text"></span><span class="cursor">|</span></h3>
       <a href="#projects" class="btn">See My Work</a>
     </div>
   </section>
@@ -59,12 +66,13 @@
   <!-- Contact -->
   <section id="contact" class="fade-in">
     <h2>Contact Me</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea rows="5" placeholder="Your Message"></textarea>
+    <form id="contact-form">
+      <input type="text" name="from_name" placeholder="Your Name" required />
+      <input type="email" name="reply_to" placeholder="Your Email" required />
+      <textarea name="message" rows="5" placeholder="Your Message"></textarea>
       <button type="submit">Send Message</button>
     </form>
+    <p id="form-status"></p>
   </section>
 
   <!-- Footer -->
