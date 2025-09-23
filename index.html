@@ -1,202 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Max Chang | Portfolio</title>
-  <style>
-    /* Reset + Fonts */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #0f0f0f;
-      color: white;
-      overflow-x: hidden;
-    }
-    a { text-decoration: none; color: inherit; }
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0f0f0f;
+  color: #fff;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+a { text-decoration: none; color: inherit; }
 
-    /* Header */
-    header {
-      position: fixed;
-      top: 0; left: 0; width: 100%;
-      background: rgba(0,0,0,0.7);
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem 3rem;
-      z-index: 1000;
-    }
-    header h1 { font-size: 1.5rem; letter-spacing: 2px; }
-    nav a {
-      margin-left: 20px;
-      font-size: 1rem;
-      transition: color 0.3s;
-    }
-    nav a:hover { color: #00ffcc; }
+/* Header */
+header {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 3rem;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+.logo { font-size: 1.5rem; letter-spacing: 2px; color: #00ffcc; }
+nav a {
+  margin-left: 20px;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+nav a:hover { color: #00ffcc; }
 
-    /* Hero Section */
-    .hero {
-      height: 100vh;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      background: linear-gradient(120deg, #0f0f0f, #1c1c1c);
-      text-align: center;
-      animation: fadeIn 2s ease-in;
-    }
-    .hero h2 {
-      font-size: 3rem;
-      animation: slideIn 1.5s ease-out;
-    }
-    .hero p {
-      margin-top: 10px;
-      font-size: 1.2rem;
-      color: #ccc;
-      animation: fadeIn 2.5s ease-in;
-    }
-    .btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #00ffcc;
-      color: black;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    .btn:hover { transform: scale(1.1); }
+/* Hero */
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+#particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  z-index: 0;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+.hero h2 {
+  font-size: 3rem;
+}
+.hero h3 {
+  font-size: 1.5rem;
+  color: #aaa;
+  margin-top: 10px;
+}
+.highlight { color: #00ffcc; }
+.cursor {
+  display: inline-block;
+  animation: blink 0.8s infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+.btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: #00ffcc;
+  color: black;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.btn:hover { transform: scale(1.1); }
 
-    /* Sections */
-    section {
-      padding: 100px 50px;
-      text-align: center;
-    }
-    section h2 { font-size: 2.5rem; margin-bottom: 30px; }
+/* Sections */
+section {
+  padding: 120px 50px;
+  text-align: center;
+}
+section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #00ffcc;
+}
 
-    /* About */
-    .about p {
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1.2rem;
-      line-height: 1.8;
-      color: #bbb;
-      animation: fadeUp 2s ease-in;
-    }
+/* About */
+#about p {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #bbb;
+}
 
-    /* Projects */
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    .project-card {
-      background: #1c1c1c;
-      border-radius: 15px;
-      padding: 20px;
-      transition: transform 0.4s, box-shadow 0.4s;
-    }
-    .project-card:hover {
-      transform: translateY(-10px) scale(1.05);
-      box-shadow: 0px 10px 20px rgba(0,255,204,0.3);
-    }
-    .project-card h3 { margin-bottom: 10px; }
+/* Projects */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.project-card {
+  background: #1c1c1c;
+  border-radius: 15px;
+  padding: 20px;
+  transition: transform 0.4s, box-shadow 0.4s;
+}
+.project-card:hover {
+  transform: translateY(-10px) scale(1.05) rotateX(5deg);
+  box-shadow: 0px 15px 30px rgba(0,255,204,0.3);
+}
 
-    /* Contact */
-    .contact input, .contact textarea {
-      width: 80%; max-width: 500px;
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-    }
-    .contact button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      background: #00ffcc;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    .contact button:hover { transform: scale(1.1); }
+/* Contact */
+form input, form textarea {
+  width: 80%;
+  max-width: 500px;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+form button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 20px;
+  background: #00ffcc;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+form button:hover { transform: scale(1.1); }
 
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #111;
-      color: #777;
-    }
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  color: #777;
+}
 
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; } to { opacity: 1; }
-    }
-    @keyframes slideIn {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes fadeUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>Max Chang</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <section class="hero">
-    <h2>Hello, I’m Max 👋</h2>
-    <p>A passionate creator, gamer, and developer</p>
-    <a href="#projects" class="btn">See My Work</a>
-  </section>
-
-  <section id="about" class="about">
-    <h2>About Me</h2>
-    <p>
-      I love building games, making YouTube content, and exploring new technologies.  
-      Creativity and innovation are what drive me, and I aim to make engaging and meaningful projects that inspire others.
-    </p>
-  </section>
-
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="project-card">
-        <h3>🎮 Hiya Gaming</h3>
-        <p>A YouTube channel where I share high-quality gaming content.</p>
-      </div>
-      <div class="project-card">
-        <h3>🌌 Eclipse Warriors</h3>
-        <p>An original anime concept with shadows, light, and adventure.</p>
-      </div>
-      <div class="project-card">
-        <h3>🕹 Roblox Game</h3>
-        <p>Building a large-scale Roblox game aiming for 1B+ plays.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="contact">
-    <h2>Contact Me</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required><br>
-      <input type="email" placeholder="Your Email" required><br>
-      <textarea rows="5" placeholder="Your Message"></textarea><br>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>© 2025 Max Chang | All Rights Reserved</p>
-  </footer>
-
-</body>
-</html>
+/* Fade-in effect */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
