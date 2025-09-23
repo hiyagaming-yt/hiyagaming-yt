@@ -1,106 +1,89 @@
-// Typing Effect
-const typedText = document.getElementById("typed-text");
-const words = ["Gamer 🎮", "Developer 💻", "Creator 🌌"];
-let wordIndex = 0;
-let charIndex = 0;
-let currentWord = "";
-let isDeleting = false;
-
-function typeEffect() {
-  currentWord = words[wordIndex];
-  if (isDeleting) {
-    typedText.textContent = currentWord.substring(0, charIndex--);
-    if (charIndex < 0) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-    }
-  } else {
-    typedText.textContent = currentWord.substring(0, charIndex++);
-    if (charIndex > currentWord.length) {
-      isDeleting = true;
-      setTimeout(typeEffect, 800);
-      return;
-    }
-  }
-  setTimeout(typeEffect, isDeleting ? 50 : 120);
+/* Fonts and Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  background: #000;
+  overflow-x: hidden;
 }
-typeEffect();
 
-// Fade-in on Scroll
-const fadeElements = document.querySelectorAll(".fade-in");
-function checkFade() {
-  const triggerBottom = window.innerHeight * 0.85;
-  fadeElements.forEach(el => {
-    const boxTop = el.getBoundingClientRect().top;
-    if (boxTop < triggerBottom) el.classList.add("visible");
-  });
+/* Animated Gradient Background */
+.animated-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(-45deg, #ff0066, #ffcc00, #00ffcc, #6600ff);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  z-index: -1;
 }
-window.addEventListener("scroll", checkFade);
-checkFade();
-
-// Particles Background (unchanged)
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particlesArray;
-function initParticles() {
-  particlesArray = [];
-  for (let i = 0; i < 100; i++) {
-    particlesArray.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 2,
-      dx: (Math.random() - 0.5) * 1.5,
-      dy: (Math.random() - 0.5) * 1.5
-    });
-  }
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-function drawParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#00ffcc";
-  particlesArray.forEach(p => {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-    ctx.fill();
-  });
+
+/* Header */
+header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 50px;
+  position: fixed; width: 100%; top: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
 }
-function updateParticles() {
-  particlesArray.forEach(p => {
-    p.x += p.dx;
-    p.y += p.dy;
-    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-  });
+.logo { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #ffcc00; }
+nav a {
+  margin: 0 15px; color: white; text-decoration: none;
+  transition: color 0.3s;
 }
-function animateParticles() {
-  drawParticles();
-  updateParticles();
-  requestAnimationFrame(animateParticles);
+nav a:hover { color: #ffcc00; }
+
+/* Hero Section */
+.hero {
+  height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 20px;
 }
-initParticles();
-animateParticles();
+.hero h2 { font-size: 3rem; }
+.hero h3 { font-size: 1.8rem; margin: 15px 0; }
+.highlight { color: #ffcc00; }
+.btn {
+  margin-top: 20px; padding: 12px 25px;
+  background: #ff0066; border: none; border-radius: 25px;
+  color: white; font-weight: bold; text-decoration: none;
+  transition: transform 0.3s, background 0.3s;
+}
+.btn:hover { background: #ffcc00; color: black; transform: scale(1.1); }
 
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  initParticles();
-});
+/* Sections */
+section {
+  padding: 100px 50px;
+  text-align: center;
+}
+h2 { font-size: 2.5rem; margin-bottom: 30px; }
 
-// EmailJS contact form
-const form = document.getElementById("contact-form");
-const statusMsg = document.getElementById("form-status");
+/* Cards */
+.card-container {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;
+}
+.card {
+  width: 250px; height: 150px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 20px;
+  display: flex; justify-content: center; align-items: center;
+  font-size: 1.3rem;
+  transition: transform 0.4s;
+}
+.card:hover { transform: rotateY(15deg) scale(1.05); }
 
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
+/* Contact */
+form {
+  display: flex; flex-direction: column; max-width: 400px; margin: auto;
+}
+form input, form textarea {
+  margin: 10px 0; padding: 12px; border: none; border-radius: 10px;
+}
+#form-status { margin-top: 15px; font-size: 1rem; }
 
-  emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
-    .then(() => {
-      statusMsg.textContent = "✅ Message sent! I'll get back to you soon.";
-      form.reset();
-    }, (error) => {
-      statusMsg.textContent = "❌ Oops! Something went wrong.";
-      console.error(error);
-    });
-});
+/* Footer */
+footer { padding: 20px; background: rgba(0,0,0,0.7); }
