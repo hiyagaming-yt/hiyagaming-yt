@@ -32,15 +32,13 @@ function checkFade() {
   const triggerBottom = window.innerHeight * 0.85;
   fadeElements.forEach(el => {
     const boxTop = el.getBoundingClientRect().top;
-    if (boxTop < triggerBottom) {
-      el.classList.add("visible");
-    }
+    if (boxTop < triggerBottom) el.classList.add("visible");
   });
 }
 window.addEventListener("scroll", checkFade);
 checkFade();
 
-// Particles Background
+// Particles Background (unchanged)
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -49,8 +47,7 @@ canvas.height = window.innerHeight;
 let particlesArray;
 function initParticles() {
   particlesArray = [];
-  const numberOfParticles = 100;
-  for (let i = 0; i < numberOfParticles; i++) {
+  for (let i = 0; i < 100; i++) {
     particlesArray.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -89,4 +86,21 @@ window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   initParticles();
+});
+
+// EmailJS contact form
+const form = document.getElementById("contact-form");
+const statusMsg = document.getElementById("form-status");
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+    .then(() => {
+      statusMsg.textContent = "✅ Message sent! I'll get back to you soon.";
+      form.reset();
+    }, (error) => {
+      statusMsg.textContent = "❌ Oops! Something went wrong.";
+      console.error(error);
+    });
 });
