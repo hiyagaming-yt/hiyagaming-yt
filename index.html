@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Max Chang | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
-  <script>
-    (function(){
-      emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS user ID
-    })();
-  </script>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Header -->
+  <div class="animated-bg"></div>
+
   <header>
     <h1 class="logo">Max Chang</h1>
     <nav>
@@ -24,62 +20,43 @@
     </nav>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
-    <canvas id="particles"></canvas>
-    <div class="hero-content">
-      <h2>Hello, I’m <span class="highlight">Max</span> 👋</h2>
-      <h3 class="typing-line"><span id="typed-text"></span><span class="cursor">|</span></h3>
-      <a href="#projects" class="btn">See My Work</a>
-    </div>
+    <h2>Hello, I’m <span class="highlight">Max</span></h2>
+    <h3>I am a <span class="typing"></span></h3>
+    <a href="#projects" class="btn">See My Work</a>
   </section>
 
-  <!-- About -->
-  <section id="about" class="fade-in">
+  <section id="about">
     <h2>About Me</h2>
-    <p>
-      I’m a creator, gamer, and developer. I love building games,
-      designing stories, and sharing my creativity with the world.  
-      My projects mix imagination, technology, and passion ✨.
-    </p>
+    <p>I’m Max, a passionate gamer and developer creating awesome projects. I love building interactive experiences that people enjoy.</p>
   </section>
 
-  <!-- Projects -->
-  <section id="projects" class="fade-in">
+  <section id="projects">
     <h2>Projects</h2>
-    <div class="projects">
-      <div class="project-card">
-        <h3>🎮 Hiya Gaming</h3>
-        <p>High-quality gaming content on YouTube.</p>
-      </div>
-      <div class="project-card">
-        <h3>🌌 Eclipse Warriors</h3>
-        <p>Anime concept with shadows, light, and epic battles.</p>
-      </div>
-      <div class="project-card">
-        <h3>🕹 Roblox Game</h3>
-        <p>Aiming for 1B+ plays with unique gameplay mechanics.</p>
-      </div>
+    <div class="card-container">
+      <div class="card">⚡ Cool Game</div>
+      <div class="card">🎮 Roblox Project</div>
+      <div class="card">💻 Web Experiments</div>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="fade-in">
+  <section id="contact">
     <h2>Contact Me</h2>
     <form id="contact-form">
-      <input type="text" name="from_name" placeholder="Your Name" required />
-      <input type="email" name="reply_to" placeholder="Your Email" required />
-      <textarea name="message" rows="5" placeholder="Your Message"></textarea>
-      <button type="submit">Send Message</button>
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit" class="btn">Send</button>
     </form>
     <p id="form-status"></p>
   </section>
 
-  <!-- Footer -->
   <footer>
     <p>© 2025 Max Chang | All Rights Reserved</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
