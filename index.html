@@ -1,62 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Max Chang | Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Max Chang — Interactive Portfolio</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- EmailJS SDK (client-side, replace IDs in script.js) -->
+  <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
 </head>
 <body>
-  <div class="animated-bg"></div>
+  <!-- animated gradient background (CSS) -->
+  <div class="bg-gradient" aria-hidden="true"></div>
 
-  <header>
-    <h1 class="logo">Max Chang</h1>
-    <nav>
+  <!-- canvas layers -->
+  <canvas id="particles-canvas" class="canvas-layer" aria-hidden="true"></canvas>
+  <canvas id="stickman-canvas" class="canvas-layer" aria-hidden="true"></canvas>
+  <canvas id="sprites-canvas" class="canvas-layer" aria-hidden="true"></canvas>
+
+  <!-- header -->
+  <header class="site-header" role="banner">
+    <div class="logo" tabindex="0" id="logo">Max Chang</div>
+    <nav role="navigation" aria-label="Main navigation">
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
-      <a href="https://www.youtube.com/channel/UCdWm4luIouGLm6ozN5FxBQA" target="_blank">YouTube</a>
+      <a class="youtube-link" href="https://www.youtube.com/channel/UCdWm4luIouGLm6ozN5FxBQA" target="_blank" rel="noopener noreferrer">YouTube</a>
+      <button id="motion-toggle" class="icon-btn" aria-pressed="false" title="Toggle animations (reduced motion)">⚡</button>
     </nav>
   </header>
 
-  <section class="hero">
-    <h2>Hello, I’m <span class="highlight">Max</span></h2>
-    <h3>I am a <span class="typing"></span></h3>
-    <a href="#projects" class="btn">See My Work</a>
-  </section>
+  <!-- hero -->
+  <main>
+    <section class="hero" id="home" aria-label="Introduction">
+      <div class="hero-inner">
+        <h1>Hello, I’m <span class="accent">Max</span></h1>
+        <h2 class="typing-line" aria-live="polite">I am a <span id="typed"></span><span class="cursor">|</span></h2>
+        <div class="hero-cta">
+          <a class="btn" href="#projects">See My Work</a>
+          <button id="spawn-btn" class="btn outline" title="Spawn a character">Spawn Character</button>
+        </div>
+        <p class="hint">Click anywhere in the hero to spawn characters. Press <kbd>K</kbd> to spawn five. Press <kbd>M</kbd> to mute sounds.</p>
+      </div>
+    </section>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I’m Max, a passionate gamer and developer creating awesome projects. I love building interactive experiences that people enjoy.</p>
-  </section>
+    <!-- about -->
+    <section id="about" class="panel">
+      <h3>About Me</h3>
+      <p>
+        I build games, create YouTube content (Hiya Gaming), and craft interactive stories. This portfolio is an interactive playground — small, fast, and made for fun.
+      </p>
+    </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="card-container">
-      <div class="card">⚡ Cool Game</div>
-      <div class="card">🎮 Roblox Project</div>
-      <div class="card">💻 Web Experiments</div>
-    </div>
-  </section>
+    <!-- projects -->
+    <section id="projects" class="panel">
+      <h3>Projects</h3>
+      <div class="cards" id="projects-cards" aria-live="polite">
+        <article class="card" tabindex="0">
+          <h4>🎮 Hiya Gaming</h4>
+          <p>High-quality gaming content on YouTube.</p>
+          <button class="card-open">Preview</button>
+        </article>
 
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <form id="contact-form">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit" class="btn">Send</button>
-    </form>
-    <p id="form-status"></p>
-  </section>
+        <article class="card" tabindex="0">
+          <h4>🌌 Eclipse Warriors</h4>
+          <p>Anime concept with shadows & light.</p>
+          <button class="card-open">Preview</button>
+        </article>
 
-  <footer>
-    <p>© 2025 Max Chang | All Rights Reserved</p>
+        <article class="card" tabindex="0">
+          <h4>🕹 Roblox Adventure</h4>
+          <p>Large-scale Roblox game in progress (AI-assisted).</p>
+          <button class="card-open">Preview</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- contact -->
+    <section id="contact" class="panel">
+      <h3>Contact Me</h3>
+      <form id="contact-form" aria-label="Contact form">
+        <label>
+          <span class="sr-only">Your name</span>
+          <input type="text" name="from_name" placeholder="Your name" required />
+        </label>
+        <label>
+          <span class="sr-only">Your email</span>
+          <input type="email" name="reply_to" placeholder="Your email" required />
+        </label>
+        <label>
+          <span class="sr-only">Message</span>
+          <textarea name="message" placeholder="Your message" rows="5" required></textarea>
+        </label>
+        <div class="form-row">
+          <button type="submit" class="btn">Send Message</button>
+          <button type="button" id="mailto-fallback" class="btn outline">Open Email App</button>
+        </div>
+        <p id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>© <span id="year"></span> Max Chang — Built for fun & GitHub Pages</small>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
-  <script src="script.js"></script>
+  <!-- Script -->
+  <script src="script.js" defer></script>
 </body>
 </html>
