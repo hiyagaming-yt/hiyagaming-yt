@@ -8,7 +8,47 @@
    - EmailJS contact form (needs your IDs)
    - Accessibility & reduced-motion support
    ========================= */
+// ======================
+// EmailJS Contact Form
+// ======================
+(function() {
+  emailjs.init("nUhapqucV7T70XrYE"); // your Public Key
+})();
 
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  const mailtoBtn = document.getElementById("mailto-fallback");
+
+  // fallback: open mail app if EmailJS fails
+  mailtoBtn.addEventListener("click", () => {
+    const name = form.from_name.value;
+    const email = form.reply_to.value;
+    const message = form.message.value;
+    window.location.href = `mailto:hiyagamingyt53@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(message)}%0AFrom: ${encodeURIComponent(email)}`;
+  });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    status.textContent = "⏳ Sending...";
+    status.style.color = "white";
+
+    emailjs.sendForm("service_cjrpe74", "template_67nb6zm", this)
+      .then(() => {
+        status.textContent = "✅ Message sent successfully!";
+        status.style.color = "limegreen";
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("EmailJS error:", error);
+        status.textContent = "❌ Failed to send. Try the 'Open Email App' button.";
+        status.style.color = "crimson";
+      });
+  });
+});
+
+// Update footer year
+document.getElementById("year").textContent = new Date().getFullYear();
 /* ---------- Globals & util ---------- */
 const $ = sel => document.querySelector(sel);
 const $$ = sel => document.querySelectorAll(sel);
